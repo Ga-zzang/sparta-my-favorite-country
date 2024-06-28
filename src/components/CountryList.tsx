@@ -18,8 +18,8 @@ function CountryList() {
   const handleSelectCountry = (country: Country): void => {
     if (
       !selectedCountries.find(
-        (selectedCountries: Country) =>
-          selectedCountries.name.common === country.name.common
+        (selectedCountry: Country) =>
+          selectedCountry.name.common === country.name.common
       )
     ) {
       setSelectedCountries([...selectedCountries, country]);
@@ -32,12 +32,17 @@ function CountryList() {
       );
     }
   };
+
+  const nonSelectedCountries = countries.filter(
+    (country) =>
+      !selectedCountries.find((c) => c.name.common === country.name.common)
+  );
   return (
     <>
       <h1 className="text-2xl text-center font-bold mt-12">
         Favorite Countries
       </h1>
-      <div className="grid grid-cols-4 gap-6 place-items-center">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
         {selectedCountries.map((country: Country) => {
           return (
             <CountryCard
@@ -49,8 +54,8 @@ function CountryList() {
         })}
       </div>
       <h1 className="text-2xl text-center font-bold mt-12">Countries</h1>
-      <div className="grid grid-cols-4 gap-6 grid place-items-center">
-        {countries.map((country: Country) => {
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 place-items-center">
+        {nonSelectedCountries.map((country: Country) => {
           return (
             <CountryCard
               key={country.name.common}
